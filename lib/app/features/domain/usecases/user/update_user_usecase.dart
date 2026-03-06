@@ -8,7 +8,7 @@ class UpdateUserUsecase {
 
   UpdateUserUsecase(this._repository);
 
-  Future<Result<void>> call(UserEntity user) async {
+  Future<Result<void>> call(UserEntity user) {
     return _repository.updateUser(user);
   }
 }

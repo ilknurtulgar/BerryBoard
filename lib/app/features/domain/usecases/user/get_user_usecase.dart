@@ -1,4 +1,3 @@
-
 import 'package:berry_board/app/features/domain/entities/user_entity.dart';
 import 'package:berry_board/app/features/domain/repositories/user_repository.dart';
 
@@ -8,7 +7,7 @@ class GetUserUsecase {
   final IUserRepository _repository;
   GetUserUsecase(this._repository);
 
-  Future<Result<UserEntity>> call() async{
+  Future<Result<UserEntity>> call() {
     return _repository.getUser();
   }
 }
