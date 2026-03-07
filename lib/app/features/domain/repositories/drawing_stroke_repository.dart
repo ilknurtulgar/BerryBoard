@@ -1,5 +1,5 @@
-import 'package:berry_board/app/features/domain/entities/drawing_stroke_entity.dart';
-import 'package:berry_board/core/result/result.dart';
+import '../../../../core/result/result.dart';
+import '../entities/drawing_stroke_entity.dart';
 
 abstract class IDrawingStrokeRepository {
   Future<Result<void>> sendStroke(String roomId, DrawingStrokeEntity stroke);

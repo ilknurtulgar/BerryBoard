@@ -1,7 +1,6 @@
-import 'package:berry_board/app/features/domain/entities/user_entity.dart';
-import 'package:berry_board/app/features/domain/repositories/user_repository.dart';
-
 import '../../../../../core/result/result.dart';
+import '../../entities/user_entity.dart';
+import '../../repositories/user_repository.dart';
 
 class UpdateUserUsecase {
   final IUserRepository _repository;

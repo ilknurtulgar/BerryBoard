@@ -1,6 +1,6 @@
-import 'package:berry_board/app/features/domain/entities/match_entity.dart';
-import 'package:berry_board/app/features/domain/repositories/match_repository.dart';
-import 'package:berry_board/core/result/result.dart';
+import '../../../../../core/result/result.dart';
+import '../../entities/match_entity.dart';
+import '../../repositories/match_repository.dart';
 
 class JoinRoomUsecase {
   final IMatchRepository _repository;

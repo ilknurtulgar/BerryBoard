@@ -1,5 +1,5 @@
-import 'package:berry_board/app/features/domain/entities/drawing_stroke_entity.dart';
-import 'package:berry_board/app/features/domain/repositories/drawing_stroke_repository.dart';
+import '../../entities/drawing_stroke_entity.dart';
+import '../../repositories/drawing_stroke_repository.dart';
 
 class WatchCanvasUsecase {
   final IDrawingStrokeRepository _repository;

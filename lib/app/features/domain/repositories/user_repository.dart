@@ -1,6 +1,5 @@
-import 'package:berry_board/app/features/domain/entities/user_entity.dart';
-
 import '../../../../core/result/result.dart';
+import '../entities/user_entity.dart';
 
 abstract class IUserRepository {
   Future<Result<UserEntity>> getUser();

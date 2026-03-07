@@ -1,6 +1,5 @@
-import 'package:berry_board/app/features/domain/repositories/match_repository.dart';
-
 import '../../../../../core/result/result.dart';
+import '../../repositories/match_repository.dart';
 
 class GenerateMatchCodeUsecase {
   final IMatchRepository _repository;

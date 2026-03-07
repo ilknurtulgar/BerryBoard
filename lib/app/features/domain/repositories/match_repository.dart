@@ -1,5 +1,5 @@
-import 'package:berry_board/app/features/domain/entities/match_entity.dart';
-import 'package:berry_board/core/result/result.dart';
+import '../../../../core/result/result.dart';
+import '../entities/match_entity.dart';
 
 abstract class IMatchRepository {
   Future<Result<String>> generateMatchCode();

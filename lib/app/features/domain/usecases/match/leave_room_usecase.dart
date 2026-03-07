@@ -1,5 +1,5 @@
-import 'package:berry_board/app/features/domain/repositories/match_repository.dart';
-import 'package:berry_board/core/result/result.dart';
+import '../../../../../core/result/result.dart';
+import '../../repositories/match_repository.dart';
 
 class LeaveRoomUsecase {
   final IMatchRepository _repository;
