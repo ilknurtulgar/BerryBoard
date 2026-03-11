@@ -1,3 +1,4 @@
+import '../../../../../core/result/result.dart';
 import '../../entities/drawing_stroke_entity.dart';
 import '../../repositories/drawing_stroke_repository.dart';
 
@@ -6,7 +7,7 @@ class WatchCanvasUsecase {
 
   WatchCanvasUsecase(this._repository);
 
-  Stream<List<DrawingStrokeEntity>> call(String roomId) {
+  Stream<Result<List<DrawingStrokeEntity>>> call(String roomId) {
     return _repository.watchCanvas(roomId);
   }
 }

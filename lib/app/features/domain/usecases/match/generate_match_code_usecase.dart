@@ -7,6 +7,6 @@ class GenerateMatchCodeUsecase {
   GenerateMatchCodeUsecase(this._repository);
 
   Future<Result<String>> call() {
-    return _repository.generateMatchCode();
+    return _repository.createMatchAndGetCode();
   }
 }

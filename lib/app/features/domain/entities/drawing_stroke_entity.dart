@@ -9,11 +9,13 @@ class DrawingStrokeEntity {
   final int colorValue;
   final double strokeWidth;
   final String authorId;
+  final dynamic timestamp;
 
   DrawingStrokeEntity({
     required this.points,
     required this.colorValue,
     required this.strokeWidth,
     required this.authorId,
+    required this.timestamp
   });
 }

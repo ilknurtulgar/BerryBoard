@@ -1,3 +1,5 @@
+import 'package:berry_board/core/result/result.dart';
+
 import '../../entities/user_entity.dart';
 import '../../repositories/user_repository.dart';
 
@@ -6,7 +8,7 @@ class WatchUserUsecase {
 
   WatchUserUsecase(this._repository);
 
-  Stream<UserEntity> call() {
+  Stream<Result<UserEntity>> call() {
     return _repository.watchUser();
   }
 }
