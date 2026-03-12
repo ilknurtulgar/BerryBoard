@@ -4,6 +4,7 @@ import 'package:berry_board/app/common/constants/app_colors.dart';
 import 'package:berry_board/app/features/domain/entities/drawing_stroke_entity.dart';
 import 'package:berry_board/app/features/domain/usecases/drawing/send_stroke_usecase.dart';
 import 'package:berry_board/app/features/domain/usecases/drawing/watch_canvas_usecase.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_drawing_board/flutter_drawing_board.dart';
@@ -12,6 +13,7 @@ import 'package:flutter_drawing_board/paint_contents.dart';
 import 'drawing_state.dart';
 
 class DrawingCubit extends Cubit<DrawingState> {
+  final String _currentUid;
   final WatchCanvasUsecase _watchCanvasUsecase;
   final SendStrokeUsecase _sendStrokeUsecase;
   String? _lastProcessedSignature;
@@ -19,9 +21,10 @@ class DrawingCubit extends Cubit<DrawingState> {
   StreamSubscription? _canvasSubscription;
 
   DrawingCubit({
+    required String currentUid,
     required WatchCanvasUsecase watchCanvasUsecase,
     required SendStrokeUsecase sendStrokeUsecase,
-  }) : _watchCanvasUsecase = watchCanvasUsecase,
+  }) : _currentUid = currentUid ,_watchCanvasUsecase = watchCanvasUsecase,
        _sendStrokeUsecase = sendStrokeUsecase,
        super(
          DrawingState(
@@ -47,11 +50,10 @@ class DrawingCubit extends Cubit<DrawingState> {
       points: points,
       colorValue: content.paint.color.toARGB32(),
       strokeWidth: content.paint.strokeWidth,
-      authorId: "test_odasi_123",
+      authorId: _currentUid,
       timestamp: DateTime.now(),
     );
-
-    sendStroke("test_odasi_123", stroke);
+    sendStroke(stroke);
     debugPrint("upload is done");
   }
 
@@ -108,8 +110,34 @@ void _updateControllerWithRemoteStrokes(List<DrawingStrokeEntity> strokes) {
   }
 }
 
+Future<void> initialize() async {
+  emit(state.copyWith(status: DrawingStatus.loading));
+
+  try {
+    final userDoc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(_currentUid)
+        .get();
+
+    final roomId = userDoc.data()?['currentRoomId'] as String?;
+
+    if (roomId != null && roomId.isNotEmpty) {
+      emit(state.copyWith(roomId: roomId, status: DrawingStatus.success));
+      startWatchingCanvas(roomId); 
+      
+      debugPrint("🍓 Eşleşme doğrulandı! RoomId: $roomId");
+    } else {
+      debugPrint("🚨 Kullanıcının bir odası yok!");
+      emit(state.copyWith(status: DrawingStatus.error, errorMessage: "Oda bulunamadı"));
+    }
+  } catch (e) {
+    debugPrint("🚨 initialize hatası: $e");
+    emit(state.copyWith(status: DrawingStatus.error, errorMessage: e.toString()));
+  }
+}
+
   void startWatchingCanvas(String roomId) {
-    emit(state.copyWith(status: DrawingStatus.loading));
+    emit(state.copyWith(status: DrawingStatus.loading,roomId: roomId));
 
     _canvasSubscription?.cancel();
 
@@ -140,8 +168,8 @@ void _updateControllerWithRemoteStrokes(List<DrawingStrokeEntity> strokes) {
     );
   }
 
-  Future<void> sendStroke(String roomId, DrawingStrokeEntity stroke) async {
-    final result = await _sendStrokeUsecase(roomId, stroke);
+  Future<void> sendStroke(DrawingStrokeEntity stroke) async {
+    final result = await _sendStrokeUsecase(stroke);
 
     if (!result.success) {
       emit(state.copyWith(errorMessage: result.message));

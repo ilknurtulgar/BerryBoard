@@ -6,7 +6,8 @@ abstract class IAuthRemoteDataSource {
 }
 
 class AuthRemoteDataSourceImpl implements IAuthRemoteDataSource {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth;
+  AuthRemoteDataSourceImpl(this._auth);
 
   @override
   String? get currentUid => _auth.currentUser?.uid;

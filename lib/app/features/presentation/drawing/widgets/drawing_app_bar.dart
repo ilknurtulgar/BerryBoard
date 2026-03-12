@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 
 import '../../../../common/constants/app_strings.dart';
 
-class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const HomeAppBar({
+class DrawingAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const DrawingAppBar({
     super.key,
   });
   @override
@@ -14,6 +14,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+    automaticallyImplyLeading:false ,
       centerTitle: true,
       title: Text(AppStrings.appBarTitle,style: TextStyle(color: AppColors.headerTextColor,
       fontWeight: FontWeight.w500,

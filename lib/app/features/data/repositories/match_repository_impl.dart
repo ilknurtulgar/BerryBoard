@@ -48,13 +48,13 @@ class MatchRepositoryImpl with BaseRepository implements IMatchRepository {
   Future<Result<MatchEntity>> joinRoom(String code) async {
     final uid = _authRemoteDataSource.currentUid;
     if (uid == null) {
-      debugPrint(AppStrings.userNotFound);
+      debugPrint("joinroom :${AppStrings.userNotFound}");
       return Result.error(message: AppStrings.userNotFound);
     }
 
     final model = await _matchDataSource.getMatchByCode(code);
     if (model == null) {
-      debugPrint(AppStrings.invalidCode);
+      debugPrint("joinRoom :${AppStrings.invalidCode}");
       return Result.error(message: AppStrings.invalidCode);
     }
     if (model.hostId == uid) {
@@ -62,7 +62,7 @@ class MatchRepositoryImpl with BaseRepository implements IMatchRepository {
       return Result.error(message: AppStrings.invalidJoin);
     }
     return await safeCall(() async {
-      await _matchDataSource.setParticipant(model.roomId, uid);
+      await _matchDataSource.setParticipant(model.roomId,model.hostId, uid);
       return model.toEntity();
     });
   }
@@ -87,7 +87,7 @@ class MatchRepositoryImpl with BaseRepository implements IMatchRepository {
   }
 
   String _generateRandomCode(int length) {
-    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ123456789';
+    const chars = '123456789';
     return List.generate(
       length,
       (index) => chars[DateTime.now().microsecond % chars.length],
@@ -97,9 +97,20 @@ class MatchRepositoryImpl with BaseRepository implements IMatchRepository {
   Result<T>? _checkUserStatus<T>() {
     final uid = _authRemoteDataSource.currentUid;
     if (uid == null) {
-      debugPrint(AppStrings.userNotFound);
+      debugPrint("checkUserStatus :${AppStrings.userNotFound}");
       return Result.error(message: AppStrings.userNotFound);
     }
     return null;
+  }
+  
+  @override
+  Stream<Result<MatchEntity>> watchMatch(String matchCode) {
+    return safeStream((){
+     return _matchDataSource.watchMatchByCode(matchCode)
+     .where((model) => model != null)
+     .map((model){
+        return model!.toEntity();
+      });
+    });
   }
 }

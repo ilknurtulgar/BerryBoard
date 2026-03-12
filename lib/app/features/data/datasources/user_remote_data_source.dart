@@ -13,7 +13,7 @@ abstract class IUserRemoteDataSource{
 class UserRemoteDataSourceImpl implements IUserRemoteDataSource {
   final FirebaseFirestore _firestore;
 
-  UserRemoteDataSourceImpl({FirebaseFirestore? firestore}) : _firestore = firestore ?? FirebaseFirestore.instance;
+  UserRemoteDataSourceImpl(this._firestore);
 
 
   @override

@@ -8,14 +8,14 @@ import 'splash_state.dart';
 class SplashCubit extends Cubit<SplashState> {
   final GetInitialRouteUseCase _getInitialRouteUseCase;
 
-  SplashCubit(this._getInitialRouteUseCase) : super(const SplashState()){
-      checkStatus();
+  SplashCubit(this._getInitialRouteUseCase) : super(const SplashState()) {
+    checkStatus();
   }
 
   Future<void> checkStatus() async {
     emit(state.copyWith(status: SplashStatus.loading));
 
-    await Future.delayed(const Duration(seconds: 3));
+    await Future.delayed(const Duration(seconds: 2));
 
     final result = await _getInitialRouteUseCase.call();
 
@@ -24,7 +24,16 @@ class SplashCubit extends Cubit<SplashState> {
       if (user == null) {
         emit(state.copyWith(status: SplashStatus.onboarding));
       } else {
-        emit(state.copyWith(status: SplashStatus.home));
+        if (user.isMatched) {
+          emit(
+            state.copyWith(
+              status: SplashStatus.drawing,
+              roomId: user.currentRoomId!,
+            ),
+          );
+        } else {
+          emit(state.copyWith(status: SplashStatus.home));
+        }
       }
     } else {
       emit(

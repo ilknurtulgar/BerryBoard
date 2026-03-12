@@ -1,10 +1,10 @@
 import '../../../../../core/result/result.dart';
 import '../../repositories/match_repository.dart';
 
-class GenerateMatchCodeUsecase {
+class CreateMatchAndGetCodeUsecase {
   final IMatchRepository _repository;
 
-  GenerateMatchCodeUsecase(this._repository);
+  CreateMatchAndGetCodeUsecase(this._repository);
 
   Future<Result<String>> call() {
     return _repository.createMatchAndGetCode();

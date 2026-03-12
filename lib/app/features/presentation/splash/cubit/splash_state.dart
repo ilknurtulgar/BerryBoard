@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-enum SplashStatus {initial, onboarding, home, loading, error}
+enum SplashStatus {initial, onboarding, home, loading, error, drawing}
 
 class SplashState extends Equatable {
   final SplashStatus status;

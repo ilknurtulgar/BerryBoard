@@ -9,7 +9,8 @@ abstract class IDrawingRemoteDataSource {
 }
 
 class DrawingRemoteDataSourceImpl implements IDrawingRemoteDataSource {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseFirestore _firestore;
+  DrawingRemoteDataSourceImpl(this._firestore);
 
   @override
   Future<void> clearCanvas(String roomId) async {

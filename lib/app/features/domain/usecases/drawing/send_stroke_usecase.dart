@@ -7,7 +7,7 @@ class SendStrokeUsecase {
 
   SendStrokeUsecase(this._repository);
 
-  Future<Result<void>> call(String roomId, DrawingStrokeEntity stroke) {
-    return _repository.sendStroke(roomId, stroke);
+  Future<Result<void>> call( DrawingStrokeEntity stroke) {
+    return _repository.sendStroke(stroke);
   }
 }

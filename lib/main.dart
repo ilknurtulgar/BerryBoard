@@ -1,6 +1,6 @@
 import 'package:berry_board/app/common/constants/app_colors.dart';
 import 'package:berry_board/app/common/constants/provider_list.dart';
-import 'package:berry_board/app/features/presentation/splash/views/splash_view.dart';
+import 'package:berry_board/app/features/presentation/splash/view/splash_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

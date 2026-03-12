@@ -1,4 +1,4 @@
-import 'package:berry_board/app/features/presentation/home/cubit/drawing_cubit.dart';
+import 'package:berry_board/app/features/presentation/drawing/cubit/drawing_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_drawing_board/flutter_drawing_board.dart';
@@ -12,7 +12,7 @@ class CustomDrawingBoard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double boardSize = MediaQuery.of(context).size.width * 1.2;
+    final double boardSize = MediaQuery.of(context).size.width * 1.19;
 
     return Container(
       width: boardSize,

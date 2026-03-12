@@ -9,11 +9,13 @@ class DrawingState extends Equatable {
   final List<DrawingStrokeEntity> strokes;
   final String? errorMessage;
   final DrawingController drawingController;
+  final String? roomId;
 
   const DrawingState({
     this.status = DrawingStatus.initial,
     this.strokes = const [],
     this.errorMessage,
+    this.roomId,
     required this.drawingController
   });
 
@@ -22,15 +24,17 @@ class DrawingState extends Equatable {
     List<DrawingStrokeEntity>? strokes,
     String? errorMessage,
     DrawingController? drawingController,
+    String? roomId,
   }) {
     return DrawingState(
       status: status ?? this.status,
       strokes: strokes ?? this.strokes,
       errorMessage: errorMessage ?? this.errorMessage,
-      drawingController: drawingController ?? this.drawingController
+      drawingController: drawingController ?? this.drawingController,
+      roomId: roomId ?? this.roomId
     );
   }
 
   @override
-  List<Object?> get props => [status, strokes, errorMessage, drawingController];
+  List<Object?> get props => [status, strokes, errorMessage, drawingController, roomId];
 }

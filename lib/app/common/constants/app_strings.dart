@@ -16,7 +16,14 @@ class AppStrings {
   static const invalidCode = "Invalid code";
   static const invalidJoin = "You cannot join the room you created.";
   static const statusError = "Status error";
+  static const error = "Error";
 
   static const appBarTitle = "Berry Board";
+  static const takeTheCodeInfo = "Ask your partner\n for the code ";
+  static const shareTheCodeInfo = "Share the code\n with your partner";
+  static const partnerCode = "Partner code";
+  static const createRoom = "Create a room";
+  static const okay = "Okey";
+  static const matchInfo = "Once your partner enters the code,\n you will be redirected to the drawing screen.";
 
 }
