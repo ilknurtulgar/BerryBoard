@@ -54,7 +54,6 @@ class DrawingCubit extends Cubit<DrawingState> {
       timestamp: DateTime.now(),
     );
     sendStroke(stroke);
-    debugPrint("upload is done");
   }
 
  List<StrokePoint> _extractPoints(PaintContent content) {
@@ -66,7 +65,6 @@ class DrawingCubit extends Cubit<DrawingState> {
       final points = content.points ?? const [];
       return points.map((point) => StrokePoint(point.dx, point.dy)).toList();
     }
-
     return const [];
   }
 
@@ -125,13 +123,10 @@ Future<void> initialize() async {
       emit(state.copyWith(roomId: roomId, status: DrawingStatus.success));
       startWatchingCanvas(roomId); 
       
-      debugPrint("🍓 Eşleşme doğrulandı! RoomId: $roomId");
     } else {
-      debugPrint("🚨 Kullanıcının bir odası yok!");
       emit(state.copyWith(status: DrawingStatus.error, errorMessage: "Oda bulunamadı"));
     }
   } catch (e) {
-    debugPrint("🚨 initialize hatası: $e");
     emit(state.copyWith(status: DrawingStatus.error, errorMessage: e.toString()));
   }
 }

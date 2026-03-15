@@ -18,6 +18,7 @@ class HomeCubit extends Cubit<HomeState> {
   : super(HomeState(textEditingController: TextEditingController()));
 
   StreamSubscription? _matchSubscription;
+  
   void onChangedValue(String code){
     if(code.length == 6){
       joinRoom(code);
@@ -51,14 +52,12 @@ class HomeCubit extends Cubit<HomeState> {
     _matchSubscription?.cancel();
    _matchSubscription = _watchMatchUsecase.call(code).listen((result){
     if(result.success && result.data != null){
-      debugPrint("Partner ID: ${result.data!.guestId}");
       if (result.data!.guestId != null && result.data!.guestId!.isNotEmpty) {
         emit(state.copyWith(status: HomeStatus.roomJoined));
       }
     }
    });
   }
-
 
   void clearController(){
     state.textEditingController.clear();

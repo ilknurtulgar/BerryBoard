@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_drawing_board/flutter_drawing_board.dart';
-import 'package:flutter_drawing_board/paint_contents.dart';
 
-import '../../../../common/constants/app_colors.dart';
 import '../../../../common/extensions/app_decorations_extensions.dart';
+import 'clear_button.dart';
+import 'edit_button.dart';
+import 'erase_button.dart';
 
 class DrawActionRow extends StatelessWidget {
   final DrawingController drawingController;
-  const DrawActionRow({
-    super.key, required this.drawingController
-  });
+  const DrawActionRow({super.key, required this.drawingController});
 
   @override
   Widget build(BuildContext context) {
@@ -20,26 +19,9 @@ class DrawActionRow extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         mainAxisSize: MainAxisSize.min,
         children: [
-          IconButton(
-            onPressed: () => drawingController
-                .setPaintContent(SimpleLine()),
-            icon: Icon(Icons.edit,color: AppColors.standardIconColor,),
-          ),
-          IconButton(
-            onPressed: () =>
-                drawingController.setPaintContent(
-                  Eraser()
-                    ..paint = (Paint()
-                      ..style = PaintingStyle.stroke
-                      ..strokeWidth = 30.0
-                      ..color = AppColors.white),
-                ),
-            icon: Icon(Icons.cleaning_services,color: AppColors.standardIconColor,),
-          ),
-          IconButton(
-            onPressed: () => drawingController.clear(),
-            icon: Icon(Icons.delete,color: AppColors.removeColor,),
-          ),
+          EditButton(drawingController: drawingController),
+          EraseButton(drawingController: drawingController),
+          ClearButton(drawingController: drawingController),
         ],
       ),
     );

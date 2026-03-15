@@ -1,6 +1,5 @@
 import 'package:berry_board/app/features/data/models/match_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/foundation.dart';
 
 import '../../../common/constants/app_strings.dart';
 
@@ -75,23 +74,15 @@ class MatchDataSourceImpl implements IMatchDataSource {
 
   @override
   Stream<MatchModel?> watchMatchByCode(String code) {
-    debugPrint("[MatchDataSource] watchMatchByCode basladi. code=$code");
     return _firestore
         .collection(AppStrings.matchesPath)
         .where(AppStrings.matchCode, isEqualTo: code)
         .snapshots()
         .map((snapshot) {
-          debugPrint(
-            "[MatchDataSource] snapshot geldi. code=$code docCount=${snapshot.docs.length}",
-          );
           if (snapshot.docs.isNotEmpty) {
             final data = snapshot.docs.first.data();
-            debugPrint(
-              "[MatchDataSource] ilk doc guestId=${data['guestId']} roomId=${data['roomId']} isActive=${data['isActive']}",
-            );
             return MatchModel.fromMap(data);
           }
-          debugPrint("[MatchDataSource] code=$code icin match bulunamadi.");
           return null;
         });
   }

@@ -54,10 +54,4 @@ class MatchModel {
       'isActive': isActive,
     };
   }
-
-  String? getPartnerId(String currentUserId) {
-    if (currentUserId == hostId) return guestId;
-    if (currentUserId == guestId) return hostId;
-    return null;
-  }
 }

@@ -32,12 +32,11 @@ class SplashView extends StatelessWidget {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-    builder: (_) => BlocProvider(
-      // Cubit'i yarat ve hemen odayı bulmasını söyle!
-      create: (context) => getIt<DrawingCubit>()..initialize(), 
-      child: const DrawingView(),
-    ),
-  ),
+              builder: (_) => BlocProvider(
+                create: (context) => getIt<DrawingCubit>()..initialize(),
+                child: const DrawingView(),
+              ),
+            ),
           );
         }
       },

@@ -15,7 +15,6 @@ class UserRemoteDataSourceImpl implements IUserRemoteDataSource {
 
   UserRemoteDataSourceImpl(this._firestore);
 
-
   @override
   Future<UserModel?> getUser(String uid) async {
     final doc = await _firestore.collection(AppStrings.usersPath).doc(uid).get();
